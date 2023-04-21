@@ -9,6 +9,6 @@ public class Rest {
  @GetMapping("/hello")
  public String display ()
  {
-	 return "Welcome to restApi"+name;
+	 return "Welcome to restApi "+name;
  }
 }
