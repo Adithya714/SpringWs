@@ -32,5 +32,5 @@ public class Example
 		this.page = page;
 	}
 	
-	
+
 }
