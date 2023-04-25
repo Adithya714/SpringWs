@@ -34,9 +34,9 @@ public class DeliveryService {
 		drepo.deleteById(id);
 		
 	}
-
 	public List<Delivery> findbypri(String price) {
 		return drepo.findByprice(price);
 	}
 
-}
+	}
+
