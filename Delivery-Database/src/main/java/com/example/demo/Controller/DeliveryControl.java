@@ -52,4 +52,14 @@ public class DeliveryControl {
 	{
 		return dserv.findbypri(price);
 	}
+	@GetMapping("/sort/{inr}")
+	public List<Delivery> sort(@PathVariable("inr") String price)
+	{
+		return dserv.sort(price);
+	}
+	@GetMapping("pagination/{nm}/{sp}")
+	public List<Delivery> paginate(@PathVariable("nm") int num,@PathVariable("sp") int size)
+	{
+		return dserv.paginate(num,size);
+	}
 }
