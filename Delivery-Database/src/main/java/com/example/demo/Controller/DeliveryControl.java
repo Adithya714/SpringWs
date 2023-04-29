@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,18 +14,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Model.Delivery;
+import com.example.demo.Repository.DeliveryRepo;
 import com.example.demo.Service.DeliveryService;
 
 @RestController
 public class DeliveryControl {
 	@Autowired
 	public DeliveryService dserv;
+	@Autowired
+	public DeliveryRepo drepo;
 	@PostMapping("/post")
 	public Delivery saveDetails(@RequestBody Delivery dv)
 	{
 		return dserv.saveDetails(dv);
 	}
-	
 	@GetMapping("/get")
 	public List<Delivery> getInfo()
 	{
@@ -61,5 +64,45 @@ public class DeliveryControl {
 	public List<Delivery> paginate(@PathVariable("nm") int num,@PathVariable("sp") int size)
 	{
 		return dserv.paginate(num,size);
+	}
+	@GetMapping("pagination/{nm}/{sp}/{inr}")
+	public List<Delivery> paginate(@PathVariable("nm") int num,@PathVariable("sp") int size,@PathVariable("inr") String price)
+	{
+		return dserv.paginate(num,size,price);
+	}
+	@GetMapping("/getque")
+	public List<Delivery> getAllData()
+	{
+		return drepo.getAllData();
+	}
+	@GetMapping("/getque/{id}")
+	public List<Delivery> bycustomerid(@PathVariable("id") int id)
+	{
+		return drepo.bycustomerid(id);
+	}
+	@GetMapping("/getstartend/{st}/{en}")
+	public List<Delivery> startend(@PathVariable("st") int st,@PathVariable("en") int en)
+	{
+		return drepo.startend(st,en);
+	}
+	
+	@DeleteMapping("/deletque/{id}/{name}")
+	public String deleteb(@PathVariable("st") int st,@PathVariable("name") String name)
+	{
+		 drepo.deletebyId(st,name);
+		 return "The Given Id is deleted";
+	}
+	@PutMapping("/updateque/{id}/{name}")
+	public void updateque(@PathVariable("id") int id,@PathVariable("name") String name)
+	{
+		 drepo.updateDelete(id, name);
+	}
+	@PostMapping("/login")
+	public String login(@RequestBody Map<String,String> loginDataMap)
+	{
+		String loginname = loginDataMap.get("loginname");
+		String logipassword = loginDataMap.get("logipassword");
+		String result = dserv.loginCheckData(loginname, logipassword);
+		return result;
 	}
 }

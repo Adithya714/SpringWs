@@ -32,5 +32,5 @@ public class CricService {
 		Page<Model> p=rep.findAll(PageRequest.of(num, size));
 		return p.getContent();
 	}
- 
+
 }

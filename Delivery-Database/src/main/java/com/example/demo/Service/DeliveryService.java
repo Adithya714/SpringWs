@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,9 @@ public class DeliveryService {
 
 	@Autowired
 	public DeliveryRepo drepo;
-	public Delivery saveDetails(Delivery dv) {
+	
+	public Delivery saveDetails(Delivery dv) 
+	{
 		return drepo.save(dv);
 	}
 	
@@ -54,5 +55,29 @@ public class DeliveryService {
 		
 	}
 
+	public List<Delivery> paginate(int num, int size, String price) 
+	{
+		Page<Delivery> obj=drepo.findAll(PageRequest.of(num, size,Sort.by(price).ascending()));
+		return obj.getContent();
 	}
+	public String loginCheckData(String loginname,String logipassword)
+	{
+		Delivery user = drepo.findByloginname(loginname);
+		if(user == null)
+		{
+			return "No User Found/nPlease Try Again!!!!";
+		}
+		else
+		{
+			if(user.getLogipassword().equals(logipassword))
+			{
+				return "Login Successful";
+			}
+			else
+			{
+				return "Login Failed";
+			}
+		}
+	}
+}
 

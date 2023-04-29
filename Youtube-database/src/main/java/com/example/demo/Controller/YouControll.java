@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,16 @@ public class YouControll {
   public Youtube updatedetails(@PathVariable("id")int id,@RequestBody Youtube yt)
   {
 	return yserv.updatedetails(id,yt);  
+  }
+  @GetMapping("/sort/{yname}")
+  public List<Youtube> sortDet(@PathVariable("yname") String yname)
+  {
+	  return yserv.sortDet(yname);
+  }
+  @GetMapping("/paginate/{pg}/{num}")
+  public List<Youtube> paginate(@PathVariable("pg") int pg,@PathVariable("num") int num)
+  {
+	  return yserv.paginate(pg,num);
   }
   
 }

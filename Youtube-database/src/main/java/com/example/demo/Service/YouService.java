@@ -1,9 +1,12 @@
 package com.example.demo.Service;
 
-import java.util.Objects;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Repsitory.YouRepo;
@@ -28,31 +31,19 @@ public class YouService {
 		return repo.findById(id);
 	}
 
+	public List<Youtube> sortDet(String yname) {
+		return repo.findAll(Sort.by(yname).ascending());
+	}
+
+	public List<Youtube> paginate(int pg, int num) 
+	{
+		Page<Youtube> obj=repo.findAll(PageRequest.of(pg, num));
+		return obj.getContent();
+	}
+
 	public Youtube updatedetails(int id, Youtube yt) {
-		// TODO Auto-generated method stub
-	    Youtube obj=repo.findById(id).get();
-	    if(Objects.nonNull(yt.getYname())&&!"".equalsIgnoreCase(yt.getYname()))
-	    {
-	    	obj.setYname(yt.getYname());
-	    }
-	    if(Objects.nonNull(yt.getYchname())&&!"".equalsIgnoreCase(yt.getYchname()))
-	    {
-	    	obj.setYchname(yt.getYchname());
-	    }
-	    if(Objects.nonNull(yt.getYid()))
-	    {
-	    	obj.setYid(yt.getYid());
-	    }
-	    if(Objects.nonNull(yt.getYsubcount())&&!"".equalsIgnoreCase(yt.getYsubcount()))
-	    {
-	    	obj.setYsubcount(yt.getYsubcount());
-	    }
-	    if(Objects.nonNull(yt.getYcontent())&&!"".equalsIgnoreCase(yt.getYcontent()))
-	    {
-	    	obj.setYname(yt.getYcontent());
-	    }
-	    
-	    return repo.save(obj);
+	           
+		return null;
 	}
 
 }
