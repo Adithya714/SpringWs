@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Model.Delivery;
+import com.example.demo.Model.Login;
 import com.example.demo.Repository.DeliveryRepo;
 import com.example.demo.Service.DeliveryService;
 
@@ -23,6 +24,7 @@ public class DeliveryControl {
 	public DeliveryService dserv;
 	@Autowired
 	public DeliveryRepo drepo;
+	
 	@PostMapping("/post")
 	public Delivery saveDetails(@RequestBody Delivery dv)
 	{
@@ -55,11 +57,13 @@ public class DeliveryControl {
 	{
 		return dserv.findbypri(price);
 	}
+	//sort
 	@GetMapping("/sort/{inr}")
 	public List<Delivery> sort(@PathVariable("inr") String price)
 	{
 		return dserv.sort(price);
 	}
+	//paginate
 	@GetMapping("pagination/{nm}/{sp}")
 	public List<Delivery> paginate(@PathVariable("nm") int num,@PathVariable("sp") int size)
 	{
@@ -97,12 +101,25 @@ public class DeliveryControl {
 	{
 		 drepo.updateDelete(id, name);
 	}
+	
+	//login
+	@PostMapping("/postlog")
+	public Login postLog(@RequestBody Login lg)
+	{
+		return dserv.postLog(lg);
+	}
+	@GetMapping("/getlog")
+	public List<Login> getLog()
+	{
+		return dserv.getLog();
+	}
+	
 	@PostMapping("/login")
 	public String login(@RequestBody Map<String,String> loginDataMap)
 	{
 		String loginname = loginDataMap.get("loginname");
-		String logipassword = loginDataMap.get("logipassword");
-		String result = dserv.loginCheckData(loginname, logipassword);
+		String loginpassword = loginDataMap.get("loginpassword");
+		String result = dserv.loginCheckData(loginname, loginpassword);
 		return result;
 	}
 }

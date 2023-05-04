@@ -1,4 +1,4 @@
-package com.example.demo.Repository;
+  package com.example.demo.Repository;
 
 import java.util.List;
 
@@ -34,7 +34,6 @@ public interface DeliveryRepo extends JpaRepository<Delivery, Integer>{
 	@Query(value="update details set  customerid=:id where customername=:cname",nativeQuery= true)
 	public void updateDelete(@Param("id") int id,@Param("cname") String cname);
 
-	public Delivery findByloginname(String loginname);
 	
 	
 	

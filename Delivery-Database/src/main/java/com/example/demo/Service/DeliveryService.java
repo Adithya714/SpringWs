@@ -9,13 +9,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Model.Delivery;
+import com.example.demo.Model.Login;
 import com.example.demo.Repository.DeliveryRepo;
+import com.example.demo.Repository.LogRepo;
 
 @Service
 public class DeliveryService {
 
 	@Autowired
 	public DeliveryRepo drepo;
+	@Autowired
+	public LogRepo repo;
 	
 	public Delivery saveDetails(Delivery dv) 
 	{
@@ -60,16 +64,16 @@ public class DeliveryService {
 		Page<Delivery> obj=drepo.findAll(PageRequest.of(num, size,Sort.by(price).ascending()));
 		return obj.getContent();
 	}
-	public String loginCheckData(String loginname,String logipassword)
+	public String loginCheckData(String loginname,String loginpassword)
 	{
-		Delivery user = drepo.findByloginname(loginname);
+		Login user = repo.findByloginname(loginname);
 		if(user == null)
 		{
 			return "No User Found/nPlease Try Again!!!!";
 		}
 		else
 		{
-			if(user.getLogipassword().equals(logipassword))
+			if(user.getLoginpassword().equals(loginpassword))
 			{
 				return "Login Successful";
 			}
@@ -78,6 +82,15 @@ public class DeliveryService {
 				return "Login Failed";
 			}
 		}
+	}
+
+	public Login postLog(Login lg) {
+		return repo.save(lg);
+	}
+	
+	public List<Login> getLog() {
+		
+		return repo.findAll();
 	}
 }
 
