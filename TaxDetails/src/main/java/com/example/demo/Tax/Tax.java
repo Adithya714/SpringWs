@@ -60,5 +60,4 @@ public class Tax {
 		this.dob = dob;
 	}
 	
-   
 }
