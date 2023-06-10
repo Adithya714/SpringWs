@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ import com.example.demo.Model.Delivery;
 import com.example.demo.Model.Login;
 import com.example.demo.Repository.DeliveryRepo;
 import com.example.demo.Service.DeliveryService;
-
+@CrossOrigin
 @RestController
 public class DeliveryControl {
 	@Autowired
@@ -35,8 +36,13 @@ public class DeliveryControl {
 	{
 		return dserv.getInfo();
 	}
-	@PutMapping("/put")
-	public Delivery updateDetails (@RequestBody Delivery dv)
+	@GetMapping("/get/{id}")
+	public List<Delivery> bycustomerid(@PathVariable("id") int id)
+	{
+		return drepo.bycustomerid(id);
+	}
+	@PutMapping("/put/{id}")
+	public Delivery updateDetails (@PathVariable("id")int id ,@RequestBody Delivery dv)
 	{
 	    return dserv.updateDetails(dv);	
 	}
@@ -79,11 +85,6 @@ public class DeliveryControl {
 	{
 		return drepo.getAllData();
 	}
-	@GetMapping("/getque/{id}")
-	public List<Delivery> bycustomerid(@PathVariable("id") int id)
-	{
-		return drepo.bycustomerid(id);
-	}
 	@GetMapping("/getstartend/{st}/{en}")
 	public List<Delivery> startend(@PathVariable("st") int st,@PathVariable("en") int en)
 	{
@@ -114,12 +115,12 @@ public class DeliveryControl {
 		return dserv.getLog();
 	}
 	
-	@PostMapping("/login")
-	public String login(@RequestBody Map<String,String> loginDataMap)
-	{
-		String loginname = loginDataMap.get("loginname");
-		String loginpassword = loginDataMap.get("loginpassword");
-		String result = dserv.loginCheckData(loginname, loginpassword);
-		return result;
-	}
+//	@PostMapping("/login")
+//	public String login(@RequestBody Map<String,String> loginDataMap)
+//	{
+//		String loginname = loginDataMap.get("loginname");
+//		String loginpassword = loginDataMap.get("loginpassword");
+////		String result = dserv.loginCheckData(loginname, loginpassword);
+//		return result;
+//	}
 }

@@ -18,7 +18,7 @@ public interface DeliveryRepo extends JpaRepository<Delivery, Integer>{
 	@Query(value="select * from details", nativeQuery= true)
 	public List<Delivery> getAllData();
 	
-	@Query(value="select * from details where customerid=:id", nativeQuery= true)
+	@Query(value="select * from details where deliveryid=:id", nativeQuery= true)
 	public List<Delivery> bycustomerid(@Param("id")int id);
 	
 	@Query(value="select * from details where customerid between :start and :end",nativeQuery= true)

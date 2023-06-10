@@ -1,6 +1,7 @@
 package com.example.demo.Model;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -8,6 +9,7 @@ import jakarta.persistence.Table;
 @Table(name="details")
 public class Delivery {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int deliveryid;
 	private String itemname;
 	private String customername;
@@ -19,8 +21,6 @@ public class Delivery {
 	private String orderdate;
 	private String deliverydate;
 	private int quantity;
-	private String loginname;
-	private String logipassword;
 	
 	
 	public int getDeliveryid() {
@@ -88,18 +88,6 @@ public class Delivery {
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-	public String getLoginname() {
-		return loginname;
-	}
-	public void setLoginname(String loginname) {
-		this.loginname = loginname;
-	}
-	public String getLogipassword() {
-		return logipassword;
-	}
-	public void setLogipassword(String logipassword) {
-		this.logipassword = logipassword;
 	}
     
 }

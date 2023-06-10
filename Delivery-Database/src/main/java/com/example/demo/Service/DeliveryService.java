@@ -64,25 +64,6 @@ public class DeliveryService {
 		Page<Delivery> obj=drepo.findAll(PageRequest.of(num, size,Sort.by(price).ascending()));
 		return obj.getContent();
 	}
-	public String loginCheckData(String loginname,String loginpassword)
-	{
-		Login user = repo.findByloginname(loginname);
-		if(user == null)
-		{
-			return "No User Found/nPlease Try Again!!!!";
-		}
-		else
-		{
-			if(user.getLoginpassword().equals(loginpassword))
-			{
-				return "Login Successful";
-			}
-			else
-			{
-				return "Login Failed";
-			}
-		}
-	}
 
 	public Login postLog(Login lg) {
 		return repo.save(lg);
@@ -94,3 +75,22 @@ public class DeliveryService {
 	}
 }
 
+//	public String loginCheckData(String loginname,String loginpassword)
+//	{
+//		Login user = repo.findByusername(loginname);
+//		if(user == null)
+//		{
+//			return "No User Found/nPlease Try Again!!!!";
+//		}
+//		else
+//		{
+//			if(user.getPassword().equals(loginpassword))
+//			{
+//				return "Login Successful";
+//			}
+//			else
+//			{
+//				return "Login Failed";
+//			}
+//		}
+//	}
